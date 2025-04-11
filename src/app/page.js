@@ -15,14 +15,14 @@ export default function Home() {
   }, []);
 
   const fetchTodos = async () => {
-    const res = await fetch('http://localhost:3001/todos');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`);
     const data = await res.json();
     setTodos(data);
   };
 
   const addTodo = async () => {
     if (!newTodo.trim()) return;
-    await fetch('http://localhost:3001/todos', {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: newTodo }),
@@ -32,7 +32,7 @@ export default function Home() {
   };
 
   const deleteTodo = async (id) => {
-    await fetch(`http://localhost:3001/todos/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`, {
       method: 'DELETE',
     });
     fetchTodos();
@@ -44,7 +44,7 @@ export default function Home() {
   };
 
   const saveEdit = async (id) => {
-    await fetch(`http://localhost:3001/todos/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/todos/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: editingText }),
